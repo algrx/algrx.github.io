@@ -179,7 +179,7 @@
 <span class="kn">from</span> <span class="nn">.EdgeSelection</span> <span class="kn">import</span> <span class="n">EdgeSelection</span><span class="p">,</span> <span class="n">EdgeId</span><span class="p">,</span> <span class="n">EdgeContext</span>
 <span class="kn">from</span> <span class="nn">.LabelSelection</span> <span class="kn">import</span> <span class="n">LabelSelection</span>
 <span class="kn">from</span> <span class="nn">.QueueSelection</span> <span class="kn">import</span> <span class="n">QueueSelection</span><span class="p">,</span> <span class="n">QueueContext</span>
-<span class="kn">from</span> <span class="nn">.types</span> <span class="kn">import</span> <span class="n">ElementArg</span><span class="p">,</span> <span class="n">ElementId</span><span class="p">,</span> <span class="n">NumAttr</span><span class="p">,</span> <span class="n">DispatchEvent</span><span class="p">,</span> <span class="n">ReceiveEvent</span>
+<span class="kn">from</span> <span class="nn">.types</span> <span class="kn">import</span> <span class="n">ElementArg</span><span class="p">,</span> <span class="n">AnyId</span><span class="p">,</span> <span class="n">NumAttr</span><span class="p">,</span> <span class="n">DispatchEvent</span><span class="p">,</span> <span class="n">ReceiveEvent</span>
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">ElementContext</span><span class="p">,</span> <span class="n">eval_element_dict</span>
 
 
@@ -190,7 +190,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ElementContext</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Canvas.node"><a class="viewcode-back" href="../../api/api.html#api.Canvas.node">[docs]</a>    <span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">ElementId</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NodeSelection</span><span class="p">:</span>
+<div class="viewcode-block" id="Canvas.node"><a class="viewcode-back" href="../../api/api.html#api.Canvas.node">[docs]</a>    <span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">AnyId</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NodeSelection</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Selects a node by its ID. Use &quot;*&quot; to select all existing nodes.</span>
 
 <span class="sd">        :param id: A node ID. Avoid using the &quot;-&quot; character.</span>
@@ -200,7 +200,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">([</span><span class="nb">id</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="Canvas.nodes"><a class="viewcode-back" href="../../api/api.html#api.Canvas.nodes">[docs]</a>    <span class="k">def</span> <span class="nf">nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ElementId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">NodeSelection</span><span class="p">:</span>
+<div class="viewcode-block" id="Canvas.nodes"><a class="viewcode-back" href="../../api/api.html#api.Canvas.nodes">[docs]</a>    <span class="k">def</span> <span class="nf">nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">AnyId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">NodeSelection</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Selects multiple nodes using an list of ID values. If no list is provided,</span>
 <span class="sd">        all existing nodes will be selected.</span>
 
@@ -276,7 +276,7 @@
             <span class="p">)</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="Canvas.label"><a class="viewcode-back" href="../../api/api.html#api.Canvas.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">ElementId</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LabelSelection</span><span class="p">:</span>
+<div class="viewcode-block" id="Canvas.label"><a class="viewcode-back" href="../../api/api.html#api.Canvas.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">AnyId</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LabelSelection</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Selects a single canvas label by its ID. Use &quot;*&quot; to select all existing</span>
 <span class="sd">        labels.</span>
 
@@ -287,7 +287,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">([</span><span class="nb">id</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="Canvas.labels"><a class="viewcode-back" href="../../api/api.html#api.Canvas.labels">[docs]</a>    <span class="k">def</span> <span class="nf">labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ElementId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">LabelSelection</span><span class="p">:</span>
+<div class="viewcode-block" id="Canvas.labels"><a class="viewcode-back" href="../../api/api.html#api.Canvas.labels">[docs]</a>    <span class="k">def</span> <span class="nf">labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">AnyId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">LabelSelection</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Selects multiple canvas labels using a list of ID values. If no list is</span>
 <span class="sd">        provided, all existing labels will be selected.</span>
 
@@ -397,7 +397,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span><span class="n">zoomtoggle</span><span class="o">=</span><span class="n">zoomtoggle</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Canvas.queue"><a class="viewcode-back" href="../../api/api.html#api.Canvas.queue">[docs]</a>    <span class="k">def</span> <span class="nf">queue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QueueSelection</span><span class="p">:</span>
+<div class="viewcode-block" id="Canvas.queue"><a class="viewcode-back" href="../../api/api.html#api.Canvas.queue">[docs]</a>    <span class="k">def</span> <span class="nf">queue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">AnyId</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QueueSelection</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Selects a single event queue by its ID. The default queue has ID 0. Use &quot;*&quot;</span>
 <span class="sd">        to select all existing queues.</span>
 
@@ -411,7 +411,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">queues</span><span class="p">([</span><span class="nb">id</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="Canvas.queues"><a class="viewcode-back" href="../../api/api.html#api.Canvas.queues">[docs]</a>    <span class="k">def</span> <span class="nf">queues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">QueueSelection</span><span class="p">:</span>
+<div class="viewcode-block" id="Canvas.queues"><a class="viewcode-back" href="../../api/api.html#api.Canvas.queues">[docs]</a>    <span class="k">def</span> <span class="nf">queues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">AnyId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">QueueSelection</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Selects multiple event queues using an list of ID values, see :meth:`~queue`.</span>
 
 <span class="sd">        If no list is provided, all existing queues will be selected.</span>

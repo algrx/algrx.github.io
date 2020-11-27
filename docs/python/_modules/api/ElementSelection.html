@@ -176,7 +176,7 @@
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">signature</span>
 
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">ElementContext</span><span class="p">,</span> <span class="n">apply_attrs</span><span class="p">,</span> <span class="n">eval_element_value</span><span class="p">,</span> <span class="n">eval_element_dict</span>
-<span class="kn">from</span> <span class="nn">.types</span> <span class="kn">import</span> <span class="n">ElementArg</span><span class="p">,</span> <span class="n">ElementFn</span>
+<span class="kn">from</span> <span class="nn">.types</span> <span class="kn">import</span> <span class="n">ElementArg</span><span class="p">,</span> <span class="n">ElementFn</span><span class="p">,</span> <span class="n">AnyId</span>
 
 
 <span class="n">S</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;ElementSelection&quot;</span><span class="p">)</span>
@@ -296,7 +296,7 @@
             <span class="p">}</span>
         <span class="p">)</span></div>
 
-<div class="viewcode-block" id="ElementSelection.withQ"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.withQ">[docs]</a>    <span class="k">def</span> <span class="nf">withQ</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+<div class="viewcode-block" id="ElementSelection.withQ"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.withQ">[docs]</a>    <span class="k">def</span> <span class="nf">withQ</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">AnyId</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Sets the event queue to use for all events triggered by the selection. Each</span>
 <span class="sd">        queue handles events independently, and all queues execute in parallel, which</span>
 <span class="sd">        enables multiple animations to run simultaneously.</span>
@@ -312,7 +312,7 @@
 <span class="sd">            queue.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
-            <span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span> <span class="n">withQ</span><span class="o">=</span><span class="s2">&quot;null&quot;</span> <span class="k">if</span> <span class="n">queue</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">queue</span><span class="p">),</span>
+            <span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span> <span class="n">withQ</span><span class="o">=</span><span class="s2">&quot;null&quot;</span> <span class="k">if</span> <span class="n">queue</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">queue</span><span class="p">)),</span>
         <span class="p">)</span></div>
 
 <div class="viewcode-block" id="ElementSelection.duration"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.duration">[docs]</a>    <span class="k">def</span> <span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">seconds</span><span class="p">:</span> <span class="n">ElementArg</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>

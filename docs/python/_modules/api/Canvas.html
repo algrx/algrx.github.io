@@ -1,0 +1,618 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>api.Canvas &mdash; algorithmx 2.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script src="../../_static/index.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> algorithmx
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation and Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../http-server.html">HTTP Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jupyter-widget.html">Jupyter Widget</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/api.html">Selections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/networkx.html">NetworkX</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/basic-examples.html">Basic Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/networkx-examples.html">NetworkX Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/networkx-tutorial.html">NetworkX Tutorial</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">algorithmx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>api.Canvas</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for api.Canvas</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">replace</span>
+
+<span class="kn">from</span> <span class="nn">.ElementSelection</span> <span class="kn">import</span> <span class="n">ElementSelection</span>
+<span class="kn">from</span> <span class="nn">.NodeSelection</span> <span class="kn">import</span> <span class="n">NodeSelection</span>
+<span class="kn">from</span> <span class="nn">.EdgeSelection</span> <span class="kn">import</span> <span class="n">EdgeSelection</span><span class="p">,</span> <span class="n">EdgeId</span><span class="p">,</span> <span class="n">EdgeContext</span>
+<span class="kn">from</span> <span class="nn">.LabelSelection</span> <span class="kn">import</span> <span class="n">LabelSelection</span>
+<span class="kn">from</span> <span class="nn">.QueueSelection</span> <span class="kn">import</span> <span class="n">QueueSelection</span><span class="p">,</span> <span class="n">QueueContext</span>
+<span class="kn">from</span> <span class="nn">.types</span> <span class="kn">import</span> <span class="n">ElementArg</span><span class="p">,</span> <span class="n">ElementId</span><span class="p">,</span> <span class="n">NumAttr</span><span class="p">,</span> <span class="n">DispatchEvent</span><span class="p">,</span> <span class="n">ReceiveEvent</span>
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">ElementContext</span><span class="p">,</span> <span class="n">eval_element_dict</span>
+
+
+<span class="n">S</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;Canvas&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Canvas"><a class="viewcode-back" href="../../api/api.html#api.Canvas">[docs]</a><span class="k">class</span> <span class="nc">Canvas</span><span class="p">(</span><span class="n">ElementSelection</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ElementContext</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Canvas.node"><a class="viewcode-back" href="../../api/api.html#api.Canvas.node">[docs]</a>    <span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">NodeSelection</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Selects a node by its ID. Use &quot;*&quot; to select all existing nodes.</span>
+
+<span class="sd">        :param id: A node ID. Avoid using the &quot;-&quot; character.</span>
+<span class="sd">        :type id: :data:`api.types.ElementId`</span>
+
+<span class="sd">        :return: A new selection corresponding to the given node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">nodes</span><span class="p">([</span><span class="nb">id</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Canvas.nodes"><a class="viewcode-back" href="../../api/api.html#api.Canvas.nodes">[docs]</a>    <span class="k">def</span> <span class="nf">nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ElementId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">NodeSelection</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Selects multiple nodes using an list of ID values. If no list is provided,</span>
+<span class="sd">        all existing nodes will be selected.</span>
+
+<span class="sd">        :param ids: A list of node IDs. Avoid using the &quot;-&quot; character.</span>
+<span class="sd">        :type ids: Iterable[:data:`api.types.ElementId`]</span>
+
+<span class="sd">        :return: A new selection corresponding to the given nodes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">NodeSelection</span><span class="p">(</span>
+            <span class="n">replace</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span>
+                <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">],</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">nodes</span><span class="p">,</span>
+                <span class="n">parentkey</span><span class="o">=</span><span class="s2">&quot;nodes&quot;</span><span class="p">,</span>
+                <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Canvas.edge"><a class="viewcode-back" href="../../api/api.html#api.Canvas.edge">[docs]</a>    <span class="k">def</span> <span class="nf">edge</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">edge</span><span class="p">:</span> <span class="n">EdgeId</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EdgeSelection</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Selects a single edge using a (source, target, optional ID) tuple.</span>
+
+<span class="sd">        The optional ID is used to distinguish multi-edges. The full string ID of the</span>
+<span class="sd">        edge will take the form &quot;source-target(-ID)&quot;. If the edge has `directed` set to</span>
+<span class="sd">        false, &#39;source&#39; and &#39;target&#39; can be provided in any order, as long as they do</span>
+<span class="sd">        not contain the &quot;-&quot; character.</span>
+
+<span class="sd">        When accessing edges using string IDs, e.g. through :meth:`~attrs`, the</span>
+<span class="sd">        following rules apply:</span>
+<span class="sd">        * New edges with IDs in the form &quot;source-target(-ID)&quot; will automatically</span>
+<span class="sd">        initialize their `source`/`target` attributes.</span>
+<span class="sd">        * For edges with `directed` set to false, &quot;target-source(-ID)&quot; will fall back to</span>
+<span class="sd">        &quot;source-target(-ID)&quot;.</span>
+
+<span class="sd">        :param edge: A (source, target) or (source, target, ID) tuple.</span>
+<span class="sd">        :type edge: :data:`~api.EdgeSelection.EdgeId`</span>
+
+<span class="sd">        :return: A new selection corresponding to the given edge.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">edges</span><span class="p">([</span><span class="n">edge</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Canvas.edges"><a class="viewcode-back" href="../../api/api.html#api.Canvas.edges">[docs]</a>    <span class="k">def</span> <span class="nf">edges</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">EdgeId</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">EdgeSelection</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Selects multiple edges using a list of (source, target, optional ID) tuples,</span>
+<span class="sd">        see :meth:`~edge`.</span>
+
+<span class="sd">        If no list is provided, all existing edges will be selected.</span>
+
+<span class="sd">        :param ids: A list of (source, target) or (source, target, ID) tuples.</span>
+<span class="sd">            All values will be converted to strings.</span>
+<span class="sd">        :type ids: Iterable[:data:`~api.EdgeSelection.EdgeId`]</span>
+
+<span class="sd">        :return: A new selection corresponding to the given edges.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span> <span class="k">if</span> <span class="n">ids</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">EdgeSelection</span><span class="p">(</span>
+            <span class="n">EdgeContext</span><span class="p">(</span>
+                <span class="n">edges</span><span class="o">=</span><span class="n">edges</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">replace</span><span class="p">(</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span>
+                    <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="n">edges</span> <span class="ow">is</span> <span class="kc">None</span>
+                    <span class="k">else</span> <span class="p">[</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                        <span class="o">+</span> <span class="s2">&quot;-&quot;</span>
+                        <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="o">+</span> <span class="p">(</span><span class="s2">&quot;-&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+                        <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">edges</span>
+                    <span class="p">],</span>
+                    <span class="n">data</span><span class="o">=</span><span class="n">edges</span> <span class="k">if</span> <span class="n">edges</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[(</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="s2">&quot;*&quot;</span><span class="p">)],</span>
+                    <span class="n">parentkey</span><span class="o">=</span><span class="s2">&quot;edges&quot;</span><span class="p">,</span>
+                    <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span>
+                <span class="p">)</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Canvas.label"><a class="viewcode-back" href="../../api/api.html#api.Canvas.label">[docs]</a>    <span class="k">def</span> <span class="nf">label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">ElementId</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LabelSelection</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Selects a single canvas label by its ID. Use &quot;*&quot; to select all existing</span>
+<span class="sd">        labels.</span>
+
+<span class="sd">        :param id: A label ID.</span>
+<span class="sd">        :type id: Union[str, int]</span>
+
+<span class="sd">        :return: A new selection corresponding to the given label.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">labels</span><span class="p">([</span><span class="nb">id</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Canvas.labels"><a class="viewcode-back" href="../../api/api.html#api.Canvas.labels">[docs]</a>    <span class="k">def</span> <span class="nf">labels</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ElementId</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">LabelSelection</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Selects multiple canvas labels using a list of ID values. If no list is</span>
+<span class="sd">        provided, all existing labels will be selected.</span>
+
+<span class="sd">        :param ids: A list of label IDs.</span>
+<span class="sd">        :type ids: Iterable[:data:`api.types.ElementId`]</span>
+
+<span class="sd">        :return: A new selection corresponding to the given labels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">labels</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">LabelSelection</span><span class="p">(</span>
+            <span class="n">replace</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span>
+                <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">],</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+                <span class="n">parentkey</span><span class="o">=</span><span class="s2">&quot;labels&quot;</span><span class="p">,</span>
+                <span class="n">parent</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Canvas.size"><a class="viewcode-back" href="../../api/api.html#api.Canvas.size">[docs]</a>    <span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">NumAttr</span><span class="p">,</span> <span class="n">NumAttr</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the width and height of the canvas.</span>
+
+<span class="sd">        This will determine the coordinate system, and will update the ``width`` and</span>
+<span class="sd">        ``height`` attributes of the main SVG element, unless otherwise specified with</span>
+<span class="sd">        :meth:`~api.ElementSelection.svgattr`. Size is not animated by default.</span>
+
+<span class="sd">        :param size: A (width, height) tuple.</span>
+<span class="sd">        :type size: Tuple[:data:`~api.types.NumAttr`, :data:`~api.types.NumAttr`]]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Canvas.edgelayout"><a class="viewcode-back" href="../../api/api.html#api.Canvas.edgelayout">[docs]</a>    <span class="k">def</span> <span class="nf">edgelayout</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">edgelayout</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets strategy used to calculate edge lengths. Edges can either specify</span>
+<span class="sd">        individual length values (see :meth:`~api.EdgeSelection.length`, or have their</span>
+<span class="sd">        lengths dynamically calculated with the given strategy, and with an average of</span>
+<span class="sd">        :meth:`~edgelength`.</span>
+
+<span class="sd">        More information is available at</span>
+<span class="sd">        `&lt;https://github.com/tgdwyer/WebCola/wiki/link-lengths&gt;`_.</span>
+
+<span class="sd">        :param edgelayout: The edge length calculation strategy:</span>
+<span class="sd">            * &quot;individual&quot;: Uses each edge&#39;s `length` attribute individually.</span>
+<span class="sd">            * &quot;jaccard&quot; (default): Dynamic calculation based on :meth:`~edgelength`.</span>
+<span class="sd">            * &quot;symmetric&quot;: Dynamic calculation based on :meth:`~edgelength`.</span>
+<span class="sd">        :type edgelayout: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span><span class="n">edgelayout</span><span class="o">=</span><span class="n">edgelayout</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Canvas.edgelength"><a class="viewcode-back" href="../../api/api.html#api.Canvas.edgelength">[docs]</a>    <span class="k">def</span> <span class="nf">edgelength</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">edgelength</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the average length of all edges. This only applies if</span>
+<span class="sd">        :meth:`~edgelayout` is not &quot;individual&quot;.</span>
+
+<span class="sd">        The default average edge length is 70.</span>
+
+<span class="sd">        :param edgelength: The average edge length.</span>
+<span class="sd">        :type edgelength: float</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span><span class="n">edgelength</span><span class="o">=</span><span class="n">edgelength</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Canvas.pan"><a class="viewcode-back" href="../../api/api.html#api.Canvas.pan">[docs]</a>    <span class="k">def</span> <span class="nf">pan</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">pan</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">NumAttr</span><span class="p">,</span> <span class="n">NumAttr</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the location of the canvas camera. The canvas uses a Cartesian</span>
+<span class="sd">        coordinate system with (0,0) at the center.</span>
+
+<span class="sd">        :param pan: An (x, y) tuple describing the new pan location.</span>
+<span class="sd">        :type pan: Tuple[:data:`~api.types.NumAttr`, :data:`~api.types.NumAttr`]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span><span class="n">pan</span><span class="o">=</span><span class="n">pan</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Canvas.zoom"><a class="viewcode-back" href="../../api/api.html#api.Canvas.zoom">[docs]</a>    <span class="k">def</span> <span class="nf">zoom</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">zoom</span><span class="p">:</span> <span class="n">NumAttr</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the zoom level of the canvas camera. A zoom level of 2.0 will make</span>
+<span class="sd">        objects appear twice as large, 0.5 will make them half as large, etc.</span>
+
+<span class="sd">        :param zoom: The new zoom level.</span>
+<span class="sd">        :type zoom: :data:`~api.types.NumAttr`</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span><span class="n">zoom</span><span class="o">=</span><span class="n">zoom</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Canvas.panlimit"><a class="viewcode-back" href="../../api/api.html#api.Canvas.panlimit">[docs]</a>    <span class="k">def</span> <span class="nf">panlimit</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">panlimit</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">NumAttr</span><span class="p">,</span> <span class="n">NumAttr</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Restricts the movement of the canvas camera to the given bounding box,</span>
+<span class="sd">        centered at (0,0).</span>
+
+<span class="sd">        The default pan limit is: (-Infinity, Infinity).</span>
+
+<span class="sd">        :param panlimit: A (width/2, height/2) tuple describing the bounding box.</span>
+<span class="sd">        :type panlimit: Tuple[:data:`~api.types.NumAttr`, :data:`~api.types.NumAttr`]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span><span class="n">panlimit</span><span class="o">=</span><span class="n">panlimit</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Canvas.zoomlimit"><a class="viewcode-back" href="../../api/api.html#api.Canvas.zoomlimit">[docs]</a>    <span class="k">def</span> <span class="nf">zoomlimit</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">zoomlimit</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">NumAttr</span><span class="p">,</span> <span class="n">NumAttr</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Restricts the zoom level of the canvas camera to the given range. The lower</span>
+<span class="sd">        bound describes how far out the camera can zoom, while the upper bound describes</span>
+<span class="sd">        the maximum enlarging zoom.</span>
+
+<span class="sd">        The default zoom limit is (0.1, 10).</span>
+
+<span class="sd">        :param limit: A (min, max) tuple describing the zoom limit.</span>
+<span class="sd">        :type limit: Tuple[:data:`~api.types.NumAttr`, :data:`~api.types.NumAttr`]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span><span class="n">zoomlimit</span><span class="o">=</span><span class="n">zoomlimit</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Canvas.zoomtoggle"><a class="viewcode-back" href="../../api/api.html#api.Canvas.zoomtoggle">[docs]</a>    <span class="k">def</span> <span class="nf">zoomtoggle</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">zoomtoggle</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets whether or not zooming requires the ``ctrl``/``cmd`` key to be held</span>
+<span class="sd">        down. Disabled by default.</span>
+
+<span class="sd">        :param zoomtoggle: True if the ``ctrl``/``cmd`` key is required, false otherwise.</span>
+<span class="sd">        :type zoomtoggle: bool.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span><span class="n">zoomtoggle</span><span class="o">=</span><span class="n">zoomtoggle</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Canvas.queue"><a class="viewcode-back" href="../../api/api.html#api.Canvas.queue">[docs]</a>    <span class="k">def</span> <span class="nf">queue</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">QueueSelection</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Selects a single event queue by its ID. The default queue has ID 0. Use &quot;*&quot;</span>
+<span class="sd">        to select all existing queues.</span>
+
+<span class="sd">        By default, any changes made to the queue (e.g. start/stop) will take place</span>
+<span class="sd">        immediately. However, if :meth:`~api.ElementSelection.withQ` was previously</span>
+<span class="sd">        called, the changes themselves will be added as events onto the current queue.</span>
+
+<span class="sd">        :param id: A queue ID. Defaults to 0.</span>
+
+<span class="sd">        :return: A new selection corresponding to the given queue.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">queues</span><span class="p">([</span><span class="nb">id</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="Canvas.queues"><a class="viewcode-back" href="../../api/api.html#api.Canvas.queues">[docs]</a>    <span class="k">def</span> <span class="nf">queues</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ids</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">QueueSelection</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Selects multiple event queues using an list of ID values, see :meth:`~queue`.</span>
+
+<span class="sd">        If no list is provided, all existing queues will be selected.</span>
+
+<span class="sd">        :param ids: A list of queue IDs.</span>
+
+<span class="sd">        :return: A new selection corresponding to the given queues.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">QueueSelection</span><span class="p">(</span>
+            <span class="n">QueueContext</span><span class="p">(</span>
+                <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">q</span><span class="p">)</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="n">ids</span><span class="p">],</span>
+                <span class="n">withQ</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">withQ</span><span class="p">,</span>
+                <span class="n">callbacks</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">callbacks</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Canvas.message"><a class="viewcode-back" href="../../api/api.html#api.Canvas.message">[docs]</a>    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Adds a message to the current event queue. Together with :meth:`~onmessage`,</span>
+<span class="sd">        this can be used to detect when a queue reaches a certain point in execution.</span>
+
+<span class="sd">        :param message: A message string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
+            <span class="p">{</span>
+                <span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="n">message</span><span class="p">,</span>
+                <span class="o">**</span><span class="p">(</span>
+                    <span class="p">{</span>
+                        <span class="s2">&quot;withQ&quot;</span><span class="p">:</span> <span class="kc">None</span>
+                        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">withQ</span> <span class="o">==</span> <span class="s2">&quot;null&quot;</span>
+                        <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">withQ</span>
+                    <span class="p">}</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">withQ</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                    <span class="k">else</span> <span class="p">{}</span>
+                <span class="p">),</span>
+            <span class="p">}</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="Canvas.onmessage"><a class="viewcode-back" href="../../api/api.html#api.Canvas.onmessage">[docs]</a>    <span class="k">def</span> <span class="nf">onmessage</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Callable</span><span class="p">[[],</span> <span class="n">Any</span><span class="p">],</span> <span class="n">Callable</span><span class="p">[[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Any</span><span class="p">]]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Registers a callback function for messages sent by :meth:`~message`. Use &quot;*&quot;</span>
+<span class="sd">        to listen for all messages.</span>
+
+<span class="sd">        :param message: The message to listen for, or &quot;*&quot; to listen for all messages.</span>
+<span class="sd">        :param fn: A callback function. When using &quot;*&quot;, the exact message will be</span>
+<span class="sd">            provided as an argument.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">cbs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">callbacks</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span> <span class="o">=</span> <span class="n">replace</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span>
+            <span class="n">callbacks</span><span class="o">=</span><span class="p">(</span>
+                <span class="n">replace</span><span class="p">(</span><span class="n">cbs</span><span class="p">,</span> <span class="n">anymessage</span><span class="o">=</span><span class="n">fn</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">message</span> <span class="o">==</span> <span class="s2">&quot;*&quot;</span>
+                <span class="k">else</span> <span class="n">replace</span><span class="p">(</span><span class="n">cbs</span><span class="p">,</span> <span class="n">messages</span><span class="o">=</span><span class="p">{</span><span class="o">**</span><span class="p">(</span><span class="n">cbs</span><span class="o">.</span><span class="n">messages</span> <span class="ow">or</span> <span class="p">{}),</span> <span class="n">message</span><span class="p">:</span> <span class="n">fn</span><span class="p">})</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Canvas.dispatch"><a class="viewcode-back" href="../../api/api.html#api.Canvas.dispatch">[docs]</a>    <span class="k">def</span> <span class="nf">dispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">DispatchEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sends an event to the client, in the form:</span>
+<span class="sd">        * attrs: An attribute dictionary, see :meth:`~api.ElementSelection.attrs`.</span>
+<span class="sd">        * animation: A partial animation dictionary will apply to all provided</span>
+<span class="sd">        attributes, see :meth:`~api.ElementSelection.attrs`.</span>
+<span class="sd">        * message: A message, as sent by :meth:`~message`.</span>
+<span class="sd">        * withQ: The event queue to which the event will be added, see</span>
+<span class="sd">        :meth:`~api.ElementSelection.withQ`.</span>
+<span class="sd">        * queues:</span>
+
+<span class="sd">            * [id]:</span>
+
+<span class="sd">                * stop: True if the queue should be stopped, see</span>
+<span class="sd">                  :meth:`~api.QueueSelection.stop`.</span>
+<span class="sd">                * start: True if the queue should be started, see</span>
+<span class="sd">                  :meth:`~api.QueueSelection.start`.</span>
+<span class="sd">                * clear: True if all events should be cleared from the queue, see</span>
+<span class="sd">                  :meth:`~api.QueueSelection.clear`.</span>
+<span class="sd">                * pause: The number of seconds the queue should be paused for, see</span>
+<span class="sd">                  :meth:`~api.QueueSelection.pause`.</span>
+
+<span class="sd">        :param event: A partial event object.</span>
+<span class="sd">        :type event: DispatchEvent</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">dispatch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Canvas.ondispatch"><a class="viewcode-back" href="../../api/api.html#api.Canvas.ondispatch">[docs]</a>    <span class="k">def</span> <span class="nf">ondispatch</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">DispatchEvent</span><span class="p">],</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Registers a callback function to listen for all dispatched events, see :meth:`~dispatch`.</span>
+
+<span class="sd">        This will override the default event handler.</span>
+
+<span class="sd">        :param fn: A callback function which receives a partial event object.</span>
+<span class="sd">        :type fn: Callable[[DispatchEvent], Any]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">callbacks</span><span class="p">,</span> <span class="s2">&quot;dispatch&quot;</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Canvas.receive"><a class="viewcode-back" href="../../api/api.html#api.Canvas.receive">[docs]</a>    <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">event</span><span class="p">:</span> <span class="n">ReceiveEvent</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Simulates an event being received from the client, see :meth:`~onreceive`.</span>
+
+<span class="sd">        :param event: A partial event object.</span>
+<span class="sd">        :type event: ReceiveEvent</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">cbs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">callbacks</span>
+
+        <span class="c1"># event callback</span>
+        <span class="k">if</span> <span class="n">cbs</span><span class="o">.</span><span class="n">receive</span><span class="p">:</span>
+            <span class="n">cbs</span><span class="o">.</span><span class="n">receive</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+
+        <span class="c1"># message callbacks</span>
+        <span class="k">if</span> <span class="s2">&quot;message&quot;</span> <span class="ow">in</span> <span class="n">event</span> <span class="ow">and</span> <span class="n">cbs</span><span class="o">.</span><span class="n">messages</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;*&quot;</span> <span class="ow">in</span> <span class="n">cbs</span><span class="o">.</span><span class="n">messages</span><span class="p">:</span>
+                <span class="n">cbs</span><span class="o">.</span><span class="n">messages</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">](</span><span class="n">event</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">])</span>  <span class="c1"># type: ignore</span>
+            <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">cbs</span><span class="o">.</span><span class="n">messages</span><span class="p">:</span>
+                <span class="n">cbs</span><span class="o">.</span><span class="n">messages</span><span class="p">[</span><span class="n">event</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]]()</span>  <span class="c1"># type: ignore</span>
+
+        <span class="c1"># click/hover callbacks</span>
+        <span class="k">for</span> <span class="n">element_type</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;nodes&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">element_type</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">event</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">element_events</span><span class="p">)</span> <span class="ow">in</span> <span class="n">event</span><span class="p">[</span><span class="n">element_type</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">for</span> <span class="n">event_type</span> <span class="ow">in</span> <span class="n">element_events</span><span class="p">:</span>
+                    <span class="n">cb_dict</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cbs</span><span class="p">,</span> <span class="n">element_type</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">cb_dict</span> <span class="ow">and</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">cb_dict</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">event_type</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="nb">getattr</span><span class="p">(</span><span class="n">cb_dict</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">event_type</span><span class="p">)()</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="Canvas.onreceive"><a class="viewcode-back" href="../../api/api.html#api.Canvas.onreceive">[docs]</a>    <span class="k">def</span> <span class="nf">onreceive</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ReceiveEvent</span><span class="p">],</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Registers a callback function for all events sent back by the client, in the form:</span>
+<span class="sd">        * error:</span>
+
+<span class="sd">           * type: &quot;attribute&quot; (invalid attributes), &quot;unknown&quot;.</span>
+<span class="sd">           * message: The error message.</span>
+
+<span class="sd">        * message: A message, as sent by :meth:`~message`.</span>
+<span class="sd">        * nodes:</span>
+
+<span class="sd">            * [id]:</span>
+
+<span class="sd">                * click: True if the node was clicked.</span>
+<span class="sd">                * hoverin: True if the mouse hovered over the node.</span>
+<span class="sd">                * hoverout: True if the mouse exited the node.</span>
+
+<span class="sd">        :param fn: A callback function which receives a partial event object.</span>
+<span class="sd">        :type fn: Callable[[ReceiveEvent], Any]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">callbacks</span><span class="p">,</span> <span class="s2">&quot;receive&quot;</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div></div>
+
+
+<span class="k">def</span> <span class="nf">create_canvas</span><span class="p">(</span><span class="n">client</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Canvas</span><span class="p">(</span><span class="n">ElementContext</span><span class="p">(</span><span class="n">client</span><span class="o">=</span><span class="n">client</span><span class="p">,</span> <span class="n">ids</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;canvas&quot;</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="kc">None</span><span class="p">]))</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Alex Socha
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

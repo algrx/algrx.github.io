@@ -1,0 +1,494 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>api.ElementSelection &mdash; algorithmx 2.0.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/jupyter-sphinx.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/thebelab.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+        <script src="../../_static/thebelab-helper.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script src="../../_static/index.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> algorithmx
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Installation and Usage</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../http-server.html">HTTP Server</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../jupyter-widget.html">Jupyter Widget</a></li>
+</ul>
+<p class="caption"><span class="caption-text">API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../api/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/api.html">Selections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api/networkx.html">NetworkX</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Examples</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/basic-examples.html">Basic Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/networkx-examples.html">NetworkX Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../examples/networkx-tutorial.html">NetworkX Tutorial</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">algorithmx</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>api.ElementSelection</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for api.ElementSelection</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">TypeVar</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">replace</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">signature</span>
+
+<span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">ElementContext</span><span class="p">,</span> <span class="n">apply_attrs</span><span class="p">,</span> <span class="n">eval_element_value</span><span class="p">,</span> <span class="n">eval_element_dict</span>
+<span class="kn">from</span> <span class="nn">.types</span> <span class="kn">import</span> <span class="n">ElementArg</span><span class="p">,</span> <span class="n">ElementFn</span>
+
+
+<span class="n">S</span> <span class="o">=</span> <span class="n">TypeVar</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="n">bound</span><span class="o">=</span><span class="s2">&quot;ElementSelection&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ElementSelection"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection">[docs]</a><span class="k">class</span> <span class="nc">ElementSelection</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">ElementContext</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">:</span> <span class="n">ElementContext</span> <span class="o">=</span> <span class="n">context</span>
+
+<div class="viewcode-block" id="ElementSelection.attrs"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.attrs">[docs]</a>    <span class="k">def</span> <span class="nf">attrs</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span>
+        <span class="n">attrs</span><span class="p">:</span> <span class="n">ElementArg</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ElementArg</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{},</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">ElementArg</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Applies a dictionary of attributes to all selected elements.</span>
+
+<span class="sd">        All attributes correspond to the available methods. Most attribute endpoints can be provided</span>
+<span class="sd">        either as a single value, or as partial dictionary in the form:</span>
+<span class="sd">        * value: The attribute value.</span>
+<span class="sd">        * duration: The duration of the animation, see :meth:`~duration`.</span>
+<span class="sd">        * ease: The animation ease, see :meth:`~ease`.</span>
+<span class="sd">        * highlight: Whether the change is temporary, see :meth:`~highlight`.</span>
+<span class="sd">        * linger: How long a highlight should last, see :meth:`~highlight`.</span>
+<span class="sd">        * Some attributes may also contain additional properties.</span>
+
+<span class="sd">        The whole dictionary, or any of its direct entries, can be provided as an [[ElementFn]].</span>
+<span class="sd">        </span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            nodes.size((20, 30)) \</span>
+<span class="sd">                .pos(lambda _, i: (i * 10, 0)) \</span>
+<span class="sd">                .svgattr(&#39;stroke&#39;, &#39;blue&#39;) \</span>
+<span class="sd">                .duration(2.5).color(&#39;red&#39;)</span>
+<span class="sd">            </span>
+<span class="sd">            # is equivalent to</span>
+<span class="sd">            nodes.attrs(</span>
+<span class="sd">               size=[20, 30],</span>
+<span class="sd">               pos=lambda _, i: (i * 10, 0),</span>
+<span class="sd">               svgattrs: { stroke: &quot;blue&quot; },</span>
+<span class="sd">               color={</span>
+<span class="sd">                   &quot;value&quot;: &quot;red&quot;,</span>
+<span class="sd">                   &quot;duration&quot;: 2.5,</span>
+<span class="sd">               },</span>
+<span class="sd">            )</span>
+
+<span class="sd">        The whole dictionary, or any of its direct entries, can be provided as an</span>
+<span class="sd">        :data:`~api.types.ElementFn`. Entries can also be provided using keyword</span>
+<span class="sd">        arguments.</span>
+
+<span class="sd">        :param attrs: An attribute dictionary.</span>
+<span class="sd">        :type attrs: dict</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">apply_attrs</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span>
+            <span class="k">lambda</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="p">{</span>
+                <span class="o">**</span><span class="n">eval_element_dict</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+                <span class="o">**</span><span class="n">eval_element_dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ElementSelection.add"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.add">[docs]</a>    <span class="k">def</span> <span class="nf">add</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span>
+        <span class="n">attrs</span><span class="p">:</span> <span class="n">ElementArg</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">ElementArg</span><span class="p">[</span><span class="n">Any</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">{},</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">ElementArg</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Adds all selected elements to the canvas with the given initial attributes.</span>
+
+<span class="sd">        :param attrs: An attribute dictionary, see :data:`~api.types.ElementAttrs`.</span>
+<span class="sd">        :type attrs: ElementArg[Mapping]</span>
+
+<span class="sd">        :return: A new instance of the current selection with animations disabled, to</span>
+<span class="sd">            allow for further attribute initialisation.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="p">{</span>
+                <span class="o">**</span><span class="p">(</span><span class="n">eval_element_dict</span><span class="p">(</span><span class="n">attrs</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">if</span> <span class="n">attrs</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}),</span>
+                <span class="o">**</span><span class="n">eval_element_dict</span><span class="p">(</span><span class="n">kwargs</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+            <span class="p">}</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">duration</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementSelection.remove"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.remove">[docs]</a>    <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Removes all selected elements, resetting their attributes and layout state.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span><span class="n">remove</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementSelection.visible"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.visible">[docs]</a>    <span class="k">def</span> <span class="nf">visible</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">visible</span><span class="p">:</span> <span class="n">ElementArg</span><span class="p">[</span><span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sets whether or not the elements in the current selection should be visible. This can be animated in the same way</span>
+<span class="sd">        as additions and removals. However, in contrast to removing, disabling visibility will not clear attributes or</span>
+<span class="sd">        affect layout.</span>
+
+<span class="sd">        :param visible: Whether or not the elements should be visible.</span>
+<span class="sd">        :type visible: :data:`~api.types.ElementArg`\\[bool]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span><span class="n">visible</span><span class="o">=</span><span class="n">visible</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementSelection.svgattr"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.svgattr">[docs]</a>    <span class="k">def</span> <span class="nf">svgattr</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">ElementArg</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]):</span>
+        <span class="sd">&quot;&quot;&quot;Sets a custom SVG attribute on the element. The root SVG tag is ``&lt;shape&gt;``</span>
+<span class="sd">        for nodes, ``&lt;path&gt;`` for edges, ``&lt;text&gt;`` for labels, and ``&lt;svg&gt;`` for the</span>
+<span class="sd">        canvas.</span>
+
+<span class="sd">        Note that when using :meth:`attrs`, SVG attributes should be provided as a</span>
+<span class="sd">        dictionary under the key ``svgattrs``.</span>
+
+<span class="sd">        :param key: The name of the SVG attribute.</span>
+<span class="sd">        :type key: str</span>
+
+<span class="sd">        :param value: The value of the SVG attribute.</span>
+<span class="sd">        :type value: :data:`~api.types.ElementArg`\\[Union[str, int, float]]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">(</span>
+            <span class="k">lambda</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;svgattrs&quot;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="n">key</span><span class="p">:</span> <span class="n">eval_element_value</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span>
+                <span class="p">},</span>
+            <span class="p">}</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementSelection.withQ"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.withQ">[docs]</a>    <span class="k">def</span> <span class="nf">withQ</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">queue</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Sets the event queue to use for all events triggered by the selection. Each</span>
+<span class="sd">        queue handles events independently, and all queues execute in parallel, which</span>
+<span class="sd">        enables multiple animations to run simultaneously.</span>
+
+<span class="sd">        The ``None`` queue is special; all events added to it will execute immediately.</span>
+<span class="sd">        The default queue ID is 0.</span>
+
+<span class="sd">        :param queue: The name of the queue. This can be any string or number, or</span>
+<span class="sd">            ``None`` for the immediate queue. Defaults to 0.</span>
+<span class="sd">        :type queue: Union[str, int, None]</span>
+
+<span class="sd">        :return: A new instance of the current selection using the specified event</span>
+<span class="sd">            queue.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+            <span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span> <span class="n">withQ</span><span class="o">=</span><span class="s2">&quot;null&quot;</span> <span class="k">if</span> <span class="n">queue</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">queue</span><span class="p">),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementSelection.duration"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.duration">[docs]</a>    <span class="k">def</span> <span class="nf">duration</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">seconds</span><span class="p">:</span> <span class="n">ElementArg</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Configures the duration of all animations triggered by the selection. A</span>
+<span class="sd">        duration of 0 will ensure that changes occur immediately. The default duration</span>
+<span class="sd">        is usually 0.5.</span>
+
+<span class="sd">        :param seconds: The animation duration, in seconds.</span>
+<span class="sd">        :type seconds: Union[int, float]</span>
+
+<span class="sd">        :return: A new instance of the current selection using the given animation</span>
+<span class="sd">            duration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+            <span class="n">replace</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span>
+                <span class="n">animation</span><span class="o">=</span><span class="p">{</span>
+                    <span class="o">**</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">animation</span> <span class="ow">or</span> <span class="p">{}),</span>
+                    <span class="s2">&quot;duration&quot;</span><span class="p">:</span> <span class="n">seconds</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementSelection.ease"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.ease">[docs]</a>    <span class="k">def</span> <span class="nf">ease</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">ease</span><span class="p">:</span> <span class="n">ElementArg</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Configures the ease function used in all animations triggered by the</span>
+<span class="sd">        selection.  This will affect the way attributes transition from one value to</span>
+<span class="sd">        another. More information is available here: `&lt;https://github.com/d3/d3-ease&gt;`_.</span>
+
+<span class="sd">        :param ease: The name of the ease function, based on the functions found in D3.</span>
+<span class="sd">            The full list is below:</span>
+
+<span class="sd">            &quot;linear&quot;, &quot;poly&quot;, &quot;poly-in&quot;, &quot;poly-out&quot;, &quot;poly-in-out&quot;, &quot;quad&quot;, &quot;quad-in&quot;,</span>
+<span class="sd">            &quot;quad-out&quot;, &quot;quad-in-out&quot;, &quot;cubic&quot;, &quot;cubic-in&quot;, &quot;cubic-out&quot;, &quot;cubic-in-out&quot;,</span>
+<span class="sd">            &quot;sin&quot;, &quot;sin-in&quot;, &quot;sin-out&quot;, &quot;sin-in-out&quot;, &quot;exp&quot;, &quot;exp-in&quot;, &quot;exp-out&quot;,</span>
+<span class="sd">            &quot;exp-in-out&quot;, &quot;circle&quot;, &quot;circle-in&quot;, &quot;circle-out&quot;, &quot;circle-in-out&quot;,</span>
+<span class="sd">            &quot;elastic&quot;, &quot;elastic-in&quot;, &quot;elastic-out&quot;, &quot;elastic-in-out&quot;, &quot;back&quot;, &quot;back-in&quot;,</span>
+<span class="sd">            &quot;back-out&quot;, &quot;back-in-out&quot;, &quot;bounce&quot;, &quot;bounce-in&quot;, &quot;bounce-out&quot;,</span>
+<span class="sd">            &quot;bounce-in-out&quot;.</span>
+
+<span class="sd">        :type ease: str</span>
+
+<span class="sd">        :return: A new instance of the current selection using the given animation ease.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+            <span class="n">replace</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span>
+                <span class="n">animation</span><span class="o">=</span><span class="p">{</span>
+                    <span class="o">**</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">animation</span> <span class="ow">or</span> <span class="p">{}),</span>
+                    <span class="s2">&quot;ease&quot;</span><span class="p">:</span> <span class="n">ease</span><span class="p">,</span>
+                <span class="p">},</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementSelection.highlight"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.highlight">[docs]</a>    <span class="k">def</span> <span class="nf">highlight</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">seconds</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ElementArg</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Returns a new selection through which all attribute changes are temporary.</span>
+<span class="sd">        This is typically used to draw attention to a certain element without</span>
+<span class="sd">        permanently changing its attributes.</span>
+
+<span class="sd">        :param seconds: The amount of time attributes should remain &#39;highlighted&#39;, in</span>
+<span class="sd">            seconds, before changing back to their original values. Defaults to 0.5.</span>
+<span class="sd">        :type seconds: Optional[:data:`~api.types.ElementArg`\\[Union[int, float]]]</span>
+
+<span class="sd">        :return: A new instance of the current selection, where all attribute changes are temporary.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+            <span class="n">replace</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span>
+                <span class="n">animation</span><span class="o">=</span><span class="p">{</span>
+                    <span class="o">**</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">animation</span> <span class="ow">or</span> <span class="p">{}),</span>
+                    <span class="s2">&quot;highlight&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="o">**</span><span class="p">({</span><span class="s2">&quot;linger&quot;</span><span class="p">:</span> <span class="n">seconds</span><span class="p">}</span> <span class="k">if</span> <span class="n">seconds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}),</span>
+                <span class="p">},</span>
+            <span class="p">)</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ElementSelection.pause"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.pause">[docs]</a>    <span class="k">def</span> <span class="nf">pause</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">seconds</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Adds a pause to the current event queue. The pause will only start once all</span>
+<span class="sd">        previous pauses have finished. This is a shortcut for</span>
+<span class="sd">        :meth:`~api.QueueSelection.pause`.</span>
+
+<span class="sd">        :param seconds: The duration of the pause, in seconds.</span>
+<span class="sd">        :type seconds: Union[int, float]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">withQ</span> <span class="o">!=</span> <span class="s2">&quot;null&quot;</span>
+            <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">dispatch</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span>
+                <span class="p">{</span>
+                    <span class="s2">&quot;queues&quot;</span><span class="p">:</span> <span class="p">{(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">withQ</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">):</span> <span class="p">{</span><span class="s2">&quot;pause&quot;</span><span class="p">:</span> <span class="n">seconds</span><span class="p">}},</span>
+                    <span class="s2">&quot;withQ&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">withQ</span> <span class="ow">or</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+<div class="viewcode-block" id="ElementSelection.data"><a class="viewcode-back" href="../../api/api.html#api.ElementSelection.data">[docs]</a>    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">S</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Iterable</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">ElementFn</span><span class="p">[</span><span class="n">Any</span><span class="p">]])</span> <span class="o">-&gt;</span> <span class="n">S</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;Binds the selection to a list of data values. This will determine the data</span>
+<span class="sd">        argument to provide whenever an :data:`~api.types.ElementFn` is used.</span>
+
+<span class="sd">        You can also provide a function to map the current data list to a new one.</span>
+
+<span class="sd">        :param data: Either a list of data values (which must have the same length as</span>
+<span class="sd">            the number of elements in the selection), or a function which maps the</span>
+<span class="sd">            current data list.</span>
+<span class="sd">        :type data: Union[Iterable[Any], :data:`~api.ElementFn`\\[Any]]</span>
+
+<span class="sd">        :raise Exception: If the length of the data does not equal the number of</span>
+<span class="sd">            elements in the selection.</span>
+
+<span class="sd">        :return: A new instance of the current selection bound to the given data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data_list</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="p">[</span>
+                <span class="n">eval_element_value</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">d</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">data</span> <span class="ow">or</span> <span class="p">[])</span>
+            <span class="p">]</span>
+            <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+            <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data_list</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">ids</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;data length (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_list</span><span class="p">)</span><span class="si">}</span><span class="s2">) must equal the number of&quot;</span>
+                <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot; elements in the selection (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">ids</span><span class="p">)</span><span class="si">}</span><span class="s2">)&quot;</span>
+            <span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_list</span><span class="p">))</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2020, Alex Socha
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

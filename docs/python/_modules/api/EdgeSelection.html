@@ -180,8 +180,8 @@
 <span class="kn">from</span> <span class="nn">.utils</span> <span class="kn">import</span> <span class="n">ElementContext</span><span class="p">,</span> <span class="n">apply_attrs</span><span class="p">,</span> <span class="n">eval_element_value</span><span class="p">,</span> <span class="n">eval_element_dict</span>
 
 <span class="n">EdgeId</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span>
-    <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
-    <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span>
+    <span class="n">Tuple</span><span class="p">[</span><span class="n">ElementId</span><span class="p">,</span> <span class="n">ElementId</span><span class="p">],</span>
+    <span class="n">Tuple</span><span class="p">[</span><span class="n">ElementId</span><span class="p">,</span> <span class="n">ElementId</span><span class="p">,</span> <span class="n">ElementId</span><span class="p">],</span>
 <span class="p">]</span>
 
 
@@ -213,8 +213,8 @@
             <span class="p">}</span>
             <span class="k">return</span> <span class="p">(</span>
                 <span class="p">{</span>
-                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">element_index</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
-                    <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">element_index</span><span class="p">][</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">element_index</span><span class="p">][</span><span class="mi">0</span><span class="p">]),</span>
+                    <span class="s2">&quot;target&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">element_index</span><span class="p">][</span><span class="mi">1</span><span class="p">]),</span>
                     <span class="o">**</span><span class="n">attr_obj</span><span class="p">,</span>
                 <span class="p">}</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">edges</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
@@ -306,9 +306,9 @@
 
         <span class="k">def</span> <span class="nf">attr_fn</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">data_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">i</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
             <span class="n">animsource</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">eval_element_value</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">data_index</span><span class="p">)</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">eval_element_value</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">data_index</span><span class="p">))</span>
                 <span class="k">if</span> <span class="n">source</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-                <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">edges</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_selection</span><span class="o">.</span><span class="n">edges</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
                 <span class="k">else</span> <span class="kc">None</span>
             <span class="p">)</span>
